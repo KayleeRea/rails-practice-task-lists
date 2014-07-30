@@ -15,7 +15,13 @@ feature 'Tasks' do
     select two_days_from_now.strftime("%Y"), from: "task_due_date_1i"
     select two_days_from_now.strftime("%B"), from: "task_due_date_2i"
     select two_days_from_now.strftime("%-d"), from: "task_due_date_3i"
+
+    #User can assign a task to a user
+    select "Some User", from: "Assigned to"
     click_on "Create Task"
+
+    expect(page).to have_content("Some User")
+
 
     expect(page).to have_content("Something important")
     expect(page).to have_content("Task was created successfully!")
@@ -26,7 +32,7 @@ feature 'Tasks' do
   scenario 'User can complete tasks' do
     user = create_user email: "user@example.com"
     task_list = TaskList.create!(name: "Work List")
-    task = task_list.tasks.create!(description: "Some task", due_date: 2.days.from_now)
+    task = task_list.tasks.create!(description: "Some task", due_date: 2.days.from_now, )
 
     login(user)
     click_on "Complete"

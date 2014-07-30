@@ -17,6 +17,12 @@
   </div>
 
   <div class="form-row">
+    <%= f.label :assigned_to, class: "form-label" %>
+    <%= f.collection_select :assigned_to, User.order(:name), :id, :name, include_blank: "Select a User"%>
+  </div>
+
+
+  <div class="form-row">
     <%= f.submit %>
   </div>
 
